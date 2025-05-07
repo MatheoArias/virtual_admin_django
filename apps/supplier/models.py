@@ -13,6 +13,7 @@ class Supplier(models.Model):
     city = models.CharField('Ciudad', max_length=50, blank=False, null=False)
 
     class Meta:
+        
         verbose_name = 'Proveedor'
         verbose_name_plural = 'Proveedores'
 

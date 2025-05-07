@@ -8,8 +8,8 @@ class Position(models.Model):
     name = models.CharField("Descripción", max_length=100, blank=False, null=False)
 
     class Meta:
-        verbose_name = "Position"
-        verbose_name_plural = "Positiones"
+        verbose_name = "Cargo"
+        verbose_name_plural = "Cargos"
 
     def __str__(self):
         return f"{self.code} {self.name}"
