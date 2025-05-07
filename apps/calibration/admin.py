@@ -11,7 +11,7 @@ class CalibrationAdmin(admin.ModelAdmin):
                     'calibration_range_min',
                     'uncertainty',
                     'error',
-                    'link')
+                    'file')
 
 
 admin.site.register(Calibration, CalibrationAdmin)

@@ -16,7 +16,8 @@ class EquipmentAdmin(admin.ModelAdmin):
         'description',
         'accesories',
         'manteinance_interval',
-        'category')
+        'category',
+        'image')
 
 
 admin.site.register(Equipment, EquipmentAdmin)

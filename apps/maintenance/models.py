@@ -14,7 +14,7 @@ class Maintenance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     equipment = models.ForeignKey(Equipment, verbose_name='Equipo', on_delete=models.CASCADE)
     liable = models.ForeignKey(Liable, verbose_name='Responsable', on_delete=models.CASCADE)
-    number = models.CharField('Número', max_length=10)
+    number = models.CharField('Número', max_length=10, unique=True)
     date = models.DateField('Fecha', auto_now=False, auto_now_add=False)
     category=models.CharField('Categoría', max_length=10,choices=Category.choices, default=Category.preventive)
     diagnostic = models.TextField('Diagnóstico')

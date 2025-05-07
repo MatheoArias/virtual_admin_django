@@ -8,13 +8,13 @@ class Calibration(models.Model):
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     supplier= models.ForeignKey(Supplier, verbose_name=("Proveedor"), on_delete=models.CASCADE)
-    number=models.CharField("Número", max_length=10, blank=False, null=False)
+    number=models.CharField("Número", max_length=10, blank=False, null=False, unique=True)
     date=models.DateField("Fecha", auto_now=False, auto_now_add=False)
     calibration_range_max=models.DecimalField("punto máximo", max_digits=6, decimal_places=3)
     calibration_range_min=models.DecimalField("punto mínimo",max_digits=6, decimal_places=3)
     uncertainty=models.DecimalField("Incertidumbre",max_digits=6, decimal_places=3)
     error=models.DecimalField("Error",max_digits=6, decimal_places=3)
-    link=models.CharField("Link")
+    file=models.FileField('Certificado', upload_to='calibrations/', blank=True, null=True)
     
     class Meta:
         verbose_name='Calibración'
