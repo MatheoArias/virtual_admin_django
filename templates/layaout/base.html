@@ -14,8 +14,10 @@
         {% include "layaout/partials/navbar.html" %}
         <main>
             {% block content  %}
-            
             {% endblock  %}
         </main>
+
+        {% block java_script %}
+        {% endblock %}
     </body>
 </html>

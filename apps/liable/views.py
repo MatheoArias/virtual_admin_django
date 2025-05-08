@@ -1,26 +1,20 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import TemplateView,ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView,DetailView
 from .forms import LiableForm
 from .models import Liable
 
 
 class Index(ListView):
     model=Liable
-    template_view="liable/index.html"
+    template_view="liable/liable_list.html"
     context_object_name='liables'
 
-def index(request):
-
-    liables = Liable.objects.all()
-    if (request.GET.get('search')):
-        liables = Liable.objects.filter(
-            name__contains=request.GET.get('search'))
-
-    context = {
-        'liables': liables
-    }
-    return render(request, 'liable/index.html', context)
+class Detail(DetailView):
+    model=Liable
+    template_view="liable/liable_detail.html"
+    context_object_name='liable'
 
     
 

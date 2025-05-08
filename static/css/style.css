@@ -8,11 +8,11 @@
     --color-white-50: #f8f8f7;
     --color-white-100: #f1f0ee;
     --color-black: #333;
-    --color-green:#B7CF67;
-    --color-red:#CF7F67;
+    --color-green: #B7CF67;
+    --color-red: #CF7F67;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
@@ -157,7 +157,7 @@ a.user__text-secundary:hover {
     The ending the nav's styles and begind the list_object.html styles
 */
 
-main{
+main {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -165,10 +165,10 @@ main{
     max-width: 100%;
     max-height: 100vh;
     overflow-y: scroll;
-    padding:16px;
+    padding: 16px;
 }
 
-.title-container{
+.title-container {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -177,7 +177,7 @@ main{
     padding: 4px;
 }
 
-.title{
+.title {
     width: 100%;
     font-size: 4.196rem;
     line-height: 1.2;
@@ -186,13 +186,13 @@ main{
     margin-bottom: 12px;
 }
 
-.btn-add{
+.btn-add {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 32px;
     width: 100px;
-    font-size:1.375rem;
+    font-size: 1.375rem;
     line-height: 1.2;
     font-weight: bold;
     text-align: center;
@@ -202,7 +202,7 @@ main{
     transition: all 0.4s ease;
 }
 
-.btn-add:hover{
+.btn-add:hover {
     background-color: var(--color-white-50);
     color: var(--color-blue-300);
     border: solid 1px var(--color-blue-300);
@@ -211,7 +211,7 @@ main{
     transition: all 0.4s ease;
 }
 
-.list-objects{
+.list-objects {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -220,9 +220,10 @@ main{
     list-style: none;
 }
 
-.list__item{
+.list__item {
     display: grid;
-    grid-template-columns: repeat(7,1fr); /*Camabiar estilos propios*/
+    grid-template-columns: repeat(7, 1fr);
+    /*Camabiar estilos propios*/
     align-items: center;
     width: 100%;
     height: 5rem;
@@ -236,7 +237,7 @@ main{
     position: relative;
 }
 
-.list__item:first-child{
+.list__item:first-child {
     height: 2.5rem;
     max-height: 2.5rem;
     background-color: var(--color-blue-500);
@@ -244,7 +245,7 @@ main{
     text-align: center;
 }
 
-.list__item:hover:not(:nth-child(1)){
+.list__item:hover:not(:nth-child(1)) {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     background-color: var(--color-blue-100);
     transform: translateY(-2px);
@@ -252,28 +253,28 @@ main{
     cursor: pointer;
 }
 
-.list__item .text{
+.list__item .text {
     font-size: 1.1rem;
     line-height: 1.2;
-    font-weight:normal;
+    font-weight: normal;
     color: var(--color-black);
 }
 
-.list__item:first-child p{
-    font-weight:bold;
+.list__item:first-child p {
+    font-weight: bold;
     color: var(--color-white-50);
     font-size: 1.375rem;
     line-height: 1.2;
 }
 
-.list__item img{
+.list__item img {
     width: 4.5rem;
     height: 4.5rem;
     border-radius: 50%;
-    border:solid 1px var(--color-blue-500)
+    border: solid 1px var(--color-blue-500)
 }
 
-.text-bool{
+.text-bool {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -287,19 +288,19 @@ main{
     font-weight: medium;
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
 
-.text-false{
+.text-false {
     background-color: var(--color-red);
 }
 
-.text-true{
+.text-true {
     background-color: var(--color-green);
 }
 
-.btn-edit{
+.btn-edit {
     background-image: url('../assets/edit-white.svg');
     background-position: center;
     background-size: 60%;
@@ -314,13 +315,13 @@ main{
     transition: all 0.4s ease;
 }
 
-.btn-edit:hover{
+.btn-edit:hover {
     background-image: url('../assets/edit.svg');
     background-color: var(--color-white-50);
     transition: all 0.3s ease;
 }
 
-.btn-delete{
+.btn-delete {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -338,18 +339,19 @@ main{
     transition: all 0.4s ease;
 }
 
-.btn-delete:hover{
+.btn-delete:hover {
     background-color: var(--color-white-50);
     color: var(--color-red);
     transition: all 0.3s ease;
 }
 
-.btn-detail{
+.btn-detail {
     position: absolute;
     width: 100%;
     height: 100%;
     z-index: 1;
     opacity: 0;
+    cursor: pointer;
 }
 
 /*
@@ -357,5 +359,73 @@ main{
     and beging the detail_view.html
 */
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 4;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: var(--color-white-100);
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 4.196rem;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+.close-button:hover{
+    transform: translateY(-2px);
+    transition: all 0.4s ease;
+}
+
+.modal-body{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.subtitle {
+    width: 100%;
+    font-size: 2.886rem;
+    line-height: 1.2;
+    color: var(--color-blue-500);
+    text-align: center;
+    margin-bottom: 12px;
+}
 
 
+.detail-img{
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    border:none;
+    margin: 12px auto;
+    box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.15),
+    0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.text-detail{
+    font-size: 1.719rem;
+    line-height: 1.2;
+    font-weight: lighter;
+    text-align: right;
+    width: 100%;
+}

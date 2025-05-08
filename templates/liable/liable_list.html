@@ -41,7 +41,10 @@
                 {% endif %}
 
                 <a class="btn-edit" href="#e"></a>
-                <a class="btn-detail" href="#v"></a>
+                <button type="button"
+                    class="btn-detail"
+                    data-url="{% url 'apps.liable:liable_detail' liable.pk %}">
+                </button>
                 <a class="btn-delete" href="#d">X</a>
 
             </li>
@@ -49,4 +52,20 @@
 
     </ul>
 
+    {% comment %}
+        - modal class is the shadow container.
+        - model-content class is the back to the modal (it's white in light mode).
+        - model-body class is where print the liable_detail.
+    {% endcomment %}
+    <div class="modal" id="modal">
+        <div class="modal-content">
+          <span class="close-button" id="close-button">&times;</span>
+          <div id="modal-body" class="modal-body"></div>
+        </div>
+    </div>
+
 {% endblock %}
+
+{% block java_script %}
+    <script src="{% static "js/modal.js" %}"> </script>
+{% endblock  %}
