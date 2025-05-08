@@ -1,10 +1,12 @@
 import uuid
 from django.db import models
+from apps.position.models import Position
 
 
 class Liable(models.Model):
     
     id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False, unique= True)
+    position=models.ForeignKey(Position, verbose_name='Cargo', on_delete=models.CASCADE)
     code=models.CharField('Código', max_length=10, blank=True, null=False, unique=True)
     name=models.CharField('Nombre', max_length=100,blank=True, null=False)
     lastName=models.CharField("Apellidos", max_length=100, blank=True, null=False)
@@ -23,4 +25,3 @@ class Liable(models.Model):
         return f"{self.code} - {self.name} {self.lastName}"
 
     
-       

@@ -1,0 +1,40 @@
+{% load static %}
+<nav class="nav">
+    
+    <div class="nav__user-container">
+        <div class="user-container">
+            <p class="user__text" >Mateo Arias Correa</p>
+            <p class="user__text user__text-secundary" >Director técnico</p>
+            <a class="user__text-secundary" href="#">Cerrar Sesión</a>
+        </div>
+        <img class="user-image" src="{% static 'assets/user.svg' %}" alt="esto es un ícono de usuario">
+    </div>
+
+    <ul class="nav__menu">
+        <li class="nav__item">
+            <i class="item__icon"></i>
+            <a class="nav__link" href="#">Calibraciones</a>
+        </li>
+        <li class="nav__item">
+            <i class="item__icon"></i>
+            <a class="nav__link" href="#">Mantenimientos</a>
+        </li>
+        <li class="nav__item">
+            <i class="item__icon"></i>
+            <a class="nav__link" href="#">Equipos Industriales</a>
+        </li>
+        <li class="nav__item">
+            <i class="item__icon"></i>
+            <a class="nav__link" href="#">Instrumentos de medición</a>
+        </li>
+        <li class="nav__item">
+            <i class="item__icon"></i>
+            <a class="nav__link" href="#">Personal</a>
+        </li>
+        <li class="nav__item">
+            <i class="item__icon"></i>
+            <a class="nav__link" href="#">Provedores</a>
+        </li>
+    </ul>
+
+</nav>
