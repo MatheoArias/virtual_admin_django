@@ -12,13 +12,14 @@ class Liable(models.Model):
     lastName=models.CharField("Apellidos", max_length=100, blank=True, null=False)
     email=models.EmailField('Correo Electrónico', max_length=254, blank=True, null=False, unique=True)
     telephone=models.CharField('Teléfono', max_length=10, blank=False, null=False )
-    workstation=models.CharField("Ubicación", max_length=50, blank=True, null=True)
-    image=models.ImageField("Imagen", upload_to='liables/', null=True, blank=True)
+    workstation=models.CharField('Ubicación', max_length=50, blank=True, null=True)
+    image=models.ImageField('Imagen', upload_to='liables/', null=True, blank=True)
+    active=models.BooleanField('Estado', default=True)
     
     class Meta:
         
-        verbose_name = 'Responsable'
-        verbose_name_plural = 'Responsables'
+        verbose_name = 'Personal'
+        verbose_name_plural = 'Personal'
 
     def __str__(self):
         

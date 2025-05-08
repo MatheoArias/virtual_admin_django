@@ -11,7 +11,10 @@ class LiableAdmin(admin.ModelAdmin):
         'email', 
         'telephone',
         'workstation',
-        'position')
+        'position',
+        'image',
+        'active'
+        )
 
  
 admin.site.register(Liable, LiableAdmin)

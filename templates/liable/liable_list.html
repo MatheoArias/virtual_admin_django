@@ -1,0 +1,52 @@
+{% extends "layaout/base.html" %}
+{% load static %}
+{% block title %}Personal{% endblock%}
+
+{% block content %}
+
+    <div class="title-container">
+        <h1 class="title">Personal</h1>
+        <a  class="btn-add" href="#">Agregar</a>
+    </div>
+
+    <ul class="list-objects">
+        <li class="list__item">
+            <p></p>
+            <p>Nombre</p>
+            <p>Cargo</p>
+            <p>Ubicación</p>
+            <p>Estado</p>
+            <p></p>
+            <p></p>
+        </li>
+
+        {% for  liable in  liables %}
+            <li class="list__item">
+
+                <img src="{{liable.image.url}}" alt="">
+                <p class="text">
+                    {{liable.name | upper }} {{liable.lastName | upper }}
+                </p>
+                <p class="text">
+                    {{liable.position | capfirst}}
+                </p>
+                <p class="text text-center">
+                    {{liable.workstation | upper}}
+                </p>
+
+                {% if liable.active == True %}
+                    <p class="text-bool text-true">Activo</p>
+                {% else %}
+                    <p class="text-bool text-false">Retirado</p>
+                {% endif %}
+
+                <a class="btn-edit" href="#e"></a>
+                <a class="btn-detail" href="#v"></a>
+                <a class="btn-delete" href="#d">X</a>
+
+            </li>
+        {% endfor %}
+
+    </ul>
+
+{% endblock %}
