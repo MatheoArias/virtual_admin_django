@@ -1,29 +1,27 @@
-{% extends "layaout/base.html" %}
-{% load static %}
-{% block title %}Personal{% endblock%}
-
-{% block content %}
+{% load unicorn %}
+<section>
 
     <div class="title-container">
         <h1 class="title">Personal</h1>
         <a  class="btn-add" href="#">Agregar</a>
     </div>
-
+    
     <ul class="list-objects">
+        
         <li class="list__item">
             <p></p>
             <p>Nombre</p>
             <p>Cargo</p>
-            <p>Ubicación</p>
             <p>Estado</p>
+            <p>Ubicación</p>
             <p></p>
             <p></p>
         </li>
-
+    
         {% for  liable in  liables %}
             <li class="list__item">
-
-                <img src="{{liable.image.url}}" alt="">
+    
+                <img src="{{liable.image.url}}" alt="este es el ícono del personal">
                 <p class="text">
                     {{liable.name | upper }} {{liable.lastName | upper }}
                 </p>
@@ -33,39 +31,26 @@
                 <p class="text text-center">
                     {{liable.workstation | upper}}
                 </p>
-
+    
                 {% if liable.active == True %}
                     <p class="text-bool text-true">Activo</p>
                 {% else %}
                     <p class="text-bool text-false">Retirado</p>
                 {% endif %}
-
+    
                 <a class="btn-edit" href="#e"></a>
                 <button type="button"
                     class="btn-detail"
-                    data-url="{% url 'apps.liable:liable_detail' liable.pk %}">
+                    unicorn:click.prevent="get_liable('{{liable.id}}')">
                 </button>
                 <a class="btn-delete" href="#d">X</a>
-
+    
             </li>
         {% endfor %}
-
+            
+        {% if  select_liable%}
+        {% unicorn 'liable-detail' select_liable=select_liable%}
+        {% endif %}
     </ul>
 
-    {% comment %}
-        - modal class is the shadow container.
-        - model-content class is the back to the modal (it's white in light mode).
-        - model-body class is where print the liable_detail.
-    {% endcomment %}
-    <div class="modal" id="modal">
-        <div class="modal-content">
-          <span class="close-button" id="close-button">&times;</span>
-          <div id="modal-body" class="modal-body"></div>
-        </div>
-    </div>
-
-{% endblock %}
-
-{% block java_script %}
-    <script src="{% static "js/modal.js" %}"> </script>
-{% endblock  %}
+</section>
