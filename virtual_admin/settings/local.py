@@ -12,7 +12,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME', 'virtual_admin'),
         'USER': os.environ.get('DB_USER', 'postgres'),
         'PASSWORD': os.environ.get('DB_PASSWORD', '123'),
-        'HOST': os.environ.get('DB_HOST', 'db'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'), """ change to db """
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }

@@ -1,5 +1,4 @@
 from django.views.generic import TemplateView
 
-
-class IndexView(TemplateView):
-    template_name='liable/index.html'
+class LiableIndexView(TemplateView):
+    template_name='liable/liable-index.html'

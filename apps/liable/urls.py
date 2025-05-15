@@ -3,5 +3,5 @@ from . import views
 
 app_name = 'apps.liable'
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='liable'),
+    path('', views.LiableIndexView.as_view(), name='liable-index'),
 ]

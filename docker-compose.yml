@@ -10,6 +10,7 @@ services:
       - DJANGO_SETTINGS_MODULE=virtual_admin.settings.local
     volumes:
       - .:/app
+      -
     ports:
       - "8000:8000"
     depends_on:

@@ -1,13 +1,17 @@
-{% load unicorn %}
-<section>
+<section class="section">
 
     <div class="title-container">
         <h1 class="title">Personal</h1>
-        <a  class="btn-add" href="#">Agregar</a>
+        <input type="search" 
+            unicorn:model="search" 
+            unicorn:change="search_liable"
+            placeholder="Buscar personal"
+            class="input-search">
+        <a class="btn-add" href='#'>Agregar</a>
     </div>
-    
+
     <ul class="list-objects">
-        
+
         <li class="list__item">
             <p></p>
             <p>Nombre</p>
@@ -17,40 +21,85 @@
             <p></p>
             <p></p>
         </li>
-    
-        {% for  liable in  liables %}
-            <li class="list__item">
-    
-                <img src="{{liable.image.url}}" alt="este es el ícono del personal">
-                <p class="text">
-                    {{liable.name | upper }} {{liable.lastName | upper }}
-                </p>
-                <p class="text">
-                    {{liable.position | capfirst}}
-                </p>
-                <p class="text text-center">
-                    {{liable.workstation | upper}}
-                </p>
-    
-                {% if liable.active == True %}
-                    <p class="text-bool text-true">Activo</p>
-                {% else %}
-                    <p class="text-bool text-false">Retirado</p>
-                {% endif %}
-    
-                <a class="btn-edit" href="#e"></a>
-                <button type="button"
-                    class="btn-detail"
-                    unicorn:click.prevent="get_liable('{{liable.id}}')">
-                </button>
-                <a class="btn-delete" href="#d">X</a>
-    
-            </li>
+
+        {% if liables%}
+        {% for item in liables %}
+        <li class="list__item">
+
+            <img src="{{item.image.url}}" alt="este es el ícono del personal">
+
+            <p class="text">
+                {{item.name | upper }} {{item.lastName | upper }}
+            </p>
+            <p class="text">
+                {{item.position | capfirst}}
+            </p>
+            <p class="text text-center">
+                {{item.workstation | upper}}
+            </p>
+
+            {% if item.active == True %}
+            <p class="text-bool text-true">Activo</p>
+            {% else %}
+            <p class="text-bool text-false">Retirado</p>
+            {% endif %}
+
+            <a class="btn-edit" href="#e"></a>
+            <button type="button" class="btn-detail" unicorn:click.prevent="get_liable('{{item.id}}')">
+            </button>
+            <a class="btn-delete" href="#d">X</a>
+
+        </li>
         {% endfor %}
-            
-        {% if  select_liable%}
-        {% unicorn 'liable-detail' select_liable=select_liable%}
+        {% else %}
+        <p class="list__empty-text">
+            No hay personal registrado
+        </p>
         {% endif %}
     </ul>
+
+    {% comment %}
+    this is the detail of the selected liable
+    {% endcomment %}
+    {% if liable %}
+    <div class="modal">
+        <div class="modal-content">
+            
+            <button type="button" 
+                    class="btn-close"
+                    id="btn-close">x
+            </button>
+            <img class="detail-img" 
+                alt="esta es la imágen del personal" 
+                src="{{liable.image.url}}">
+            
+            <div>
+                <h1 class="subtitle">
+                    {{liable.name | upper }} {{liable.lastName | upper }}
+                </h1>
+                <p class="text-detail">
+                    {{liable.position | capfirst}}
+                </p>
+                <p class="text-detail">
+                    {{liable.workstation | upper}}
+                </p>
+
+                <a class="text-detail" href="mailto:">
+                    {{liable.email}}
+                </a>
+
+                <a class="text-detail" href="">
+                    {{liable.telephone}}
+                </a>
+
+                {% if liable.active == True %}
+                <p class="text-bool text-true">Activo</p>
+                {% else %}
+                <p class="text-bool text-false">Retirado</p>
+                {% endif %}                
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
 </section>
