@@ -1,12 +1,17 @@
-<section class="section">
+{% load unicorn%}
+{% load static %}
+<div class="section"
+    x-data="{ open: false }">
 
     <div class="title-container">
-        <h1 class="title">Personal</h1>
+        <h5 class="title">Personal</h5>
         <input type="search" 
-            unicorn:model="search" 
-            unicorn:change="search_liable"
             placeholder="Buscar personal"
-            class="input-search">
+            class="input-search"
+            x-on:focus="open = false"
+            unicorn:model="search" 
+            unicorn:change.debounce-100ms="search_liable">
+
         <a class="btn-add" href='#'>Agregar</a>
     </div>
 
@@ -45,7 +50,10 @@
             {% endif %}
 
             <a class="btn-edit" href="#e"></a>
-            <button type="button" class="btn-detail" unicorn:click.prevent="get_liable('{{item.id}}')">
+            <button type="button" 
+                    class="btn-detail"
+                    x-on:click.prevent="open = true"
+                    unicorn:click.prevent="get_liable('{{item.id}}')">
             </button>
             <a class="btn-delete" href="#d">X</a>
 
@@ -58,48 +66,24 @@
         {% endif %}
     </ul>
 
-    {% comment %}
-    this is the detail of the selected liable
-    {% endcomment %}
-    {% if liable %}
-    <div class="modal">
+    {% if liable and modal_state %}
+    <div class="modal" 
+        id="modal-detail" 
+        x-show="open"
+        x-transition>
         <div class="modal-content">
-            
+            {% unicorn 'liable-detail' liable=liable%}
             <button type="button" 
-                    class="btn-close"
-                    id="btn-close">x
+                class="btn-close" 
+                id="btn-close"
+                x-on:click="open = false"
+                unicorn:click="close_modal">
+            x
             </button>
-            <img class="detail-img" 
-                alt="esta es la imágen del personal" 
-                src="{{liable.image.url}}">
-            
-            <div>
-                <h1 class="subtitle">
-                    {{liable.name | upper }} {{liable.lastName | upper }}
-                </h1>
-                <p class="text-detail">
-                    {{liable.position | capfirst}}
-                </p>
-                <p class="text-detail">
-                    {{liable.workstation | upper}}
-                </p>
-
-                <a class="text-detail" href="mailto:">
-                    {{liable.email}}
-                </a>
-
-                <a class="text-detail" href="">
-                    {{liable.telephone}}
-                </a>
-
-                {% if liable.active == True %}
-                <p class="text-bool text-true">Activo</p>
-                {% else %}
-                <p class="text-bool text-false">Retirado</p>
-                {% endif %}                
-            </div>
         </div>
+
     </div>
     {% endif %}
+</div>
 
-</section>
+

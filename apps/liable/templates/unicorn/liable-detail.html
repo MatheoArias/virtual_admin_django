@@ -1,0 +1,42 @@
+<div class="modal-content">
+
+    {% if liable%}
+    {% if liable.image %}
+        <img class="detail-img" 
+            alt="esta es la imágen del personal" 
+            src="{{ liable.image.url }}">
+    {% else %}
+        <p>No hay imagen disponible</p>
+    {% endif %}
+
+    <div>
+        <h1 class="subtitle">
+            {{liable.name | upper }} {{liable.lastName | upper }}
+        </h1>
+        <p class="text-detail">
+            {{liable.position | capfirst}}
+        </p>
+        <p class="text-detail">
+            {{liable.workstation | upper}}
+        </p>
+
+        <a class="text-detail" href="mailto:">
+            {{liable.email}}
+        </a>
+
+        <a class="text-detail" href="">
+            {{liable.telephone}}
+        </a>
+
+        {% if liable.active == True %}
+        <p class="text-bool text-true">Activo</p>
+        {% else %}
+        <p class="text-bool text-false">Retirado</p>
+        {% endif %}
+    </div>
+    {% else %}
+    <p class="text-detail">
+        ...Cargando
+    </p>
+    {% endif %}
+</div>
