@@ -1,89 +1,99 @@
 {% load unicorn%}
 {% load static %}
-<div class="section"
-    x-data="{ open: false }">
+<div class="container-fluid m-0 p-0" x-data="{ open: false }">
 
-    <div class="title-container">
-        <h5 class="title">Personal</h5>
-        <input type="search" 
-            placeholder="Buscar personal"
-            class="input-search"
-            x-on:focus="open = false"
-            unicorn:model="search" 
-            unicorn:change.debounce-100ms="search_liable">
-
-        <a class="btn-add" href='#'>Agregar</a>
+    <div class="row m-0 p-3">
+        <div class="col-3">
+            <h1 class="title display-1 fw-medium fw-bold">Personal</h1>
+        </div>
+        <div class="col d-flex justify-content-end align-items-center">
+            <input type="search" placeholder="Buscar personal" class="input-search" x-on:focus="open = false"
+                unicorn:model="search" unicorn:change.debounce-100ms="search_liable">
+            <a class="btn-add mx-2" href='#'>Agregar</a>
+        </div>
     </div>
 
-    <ul class="list-objects">
-
-        <li class="list__item">
-            <p></p>
-            <p>Nombre</p>
-            <p>Cargo</p>
-            <p>Estado</p>
-            <p>Ubicación</p>
-            <p></p>
-            <p></p>
-        </li>
-
+    <ul class="row m-0 p-3 d-flex gap-3 list-unstyled">
         {% if liables%}
         {% for item in liables %}
-        <li class="list__item">
+        <li class="list__item col-3 d-flex">
+            <div class="container-fluid m-0 p-0">
+                <div class="row p-3 gap-2">
+                    {% if item.image %}
+                    <img class="col-12" src="#" alt="este es el ícono del personal">
+                    {% else %}
+                    <img class="col-12" src="{% static "assets/user.svg" %}" alt="este es el ícono del personal vacío">
+                    {% endif %}
+                    <p class="col-12 text-center fw-bold fs-5 p-0 m-0">
+                        {{item.name | upper }} {{item.lastName | upper }}
+                    </p>
+                </div>
 
-            <img src="{{item.image.url}}" alt="este es el ícono del personal">
+                <div class="row p-3">
+                    <p class="text col-12">
+                        {{item.position | capfirst}}
+                    </p>
+                    <p class="text col-12">
+                        {{item.workstation | upper}}
+                    </p>
 
-            <p class="text">
-                {{item.name | upper }} {{item.lastName | upper }}
-            </p>
-            <p class="text">
-                {{item.position | capfirst}}
-            </p>
-            <p class="text text-center">
-                {{item.workstation | upper}}
-            </p>
+                    <a class="text col-12" href="mailto:">
+                        {{item.email}}
+                    </a>
 
-            {% if item.active == True %}
-            <p class="text-bool text-true">Activo</p>
-            {% else %}
-            <p class="text-bool text-false">Retirado</p>
-            {% endif %}
+                    <a class="text col-12" href="">
+                        {{item.telephone}}
+                    </a>
 
-            <a class="btn-edit" href="#e"></a>
-            <button type="button" 
-                    class="btn-detail"
-                    x-on:click.prevent="open = true"
-                    unicorn:click.prevent="get_liable('{{item.id}}')">
-            </button>
-            <a class="btn-delete" href="#d">X</a>
+                    {% if item.active == True %}
+                        <p class="text-bool true col">Activo</p>
+                    {% else %}
+                        <p class="text-bool false col">Retirado</p>
+                    {% endif %}
 
+                    <button class="btn-detail col-1" 
+                            unicorn:click.prevent="get_liable('{{item.id}}')">
+                    </button>
+
+                    <button type="button" 
+                            class="btn-edit btn-icon justify-content-end" 
+                            x-on:click.prevent="open = true"
+                            unicorn:click.prevent="get_liable('{{item.id}}')">
+                    </button>
+
+                    <button class="btn-icon btn-delete col-1" 
+                            unicorn:click.prevent="delete_liable('{{item.id}}')">
+                        X
+                    </button>
+                </div>
+            </div>
         </li>
         {% endfor %}
         {% else %}
-        <p class="list__empty-text">
+        <p class="list__empty-text col-12">
             No hay personal registrado
         </p>
         {% endif %}
     </ul>
 
-    {% if liable and modal_state %}
-    <div class="modal" 
-        id="modal-detail" 
-        x-show="open"
-        x-transition>
-        <div class="modal-content">
-            {% unicorn 'liable-detail' liable=liable%}
-            <button type="button" 
-                class="btn-close" 
-                id="btn-close"
-                x-on:click="open = false"
-                unicorn:click="close_modal">
-            x
-            </button>
+    <div class="row">
+
+        {% if liable and modal_state %}
+        <div class="modal" id="modal-detail" x-show="open" x-transition>
+            <div class="modal-content">
+                {% unicorn 'liable-detail' liable=liable%}
+                <button type="button" class="btn-close" id="btn-close" x-on:click="open = false"
+                    unicorn:click="close_modal">
+                    x
+                </button>
+            </div>
         </div>
+        {% endif %}
 
+        {% if liable %}
+        <div class="section">
+            {% unicorn 'liable-form' liable=liable%}
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
 </div>
-
-

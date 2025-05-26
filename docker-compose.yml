@@ -5,12 +5,15 @@ services:
       dockerfile: Dockerfile
     container_name: admin-django
     image: admin-django
-    command: python manage.py runserver 0.0.0.0:8000
+    command: sh -c "python manage.py migrate &&
+         python manage.py collectstatic --noinput &&
+         python manage.py runserver 0.0.0.0:8000"
+
     environment:
       - DJANGO_SETTINGS_MODULE=virtual_admin.settings.local
     volumes:
-      - .:/app
-      -
+      - staticfiles:/app/staticfiles
+      - media:/app/media
     ports:
       - "8000:8000"
     depends_on:
@@ -42,3 +45,5 @@ services:
  
 volumes:
   postgres_db:
+  staticfiles:
+  media:

@@ -1,5 +1,9 @@
 FROM python:3.9-alpine
 
+LABEL maintainer="MatheoArias"
+LABEL version="1.0"
+LABEL description="virtual_admin docker image with django"
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 

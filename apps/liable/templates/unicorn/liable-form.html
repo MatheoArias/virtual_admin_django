@@ -1,4 +1,93 @@
 <div class="modal-content">
 
+    <form unicorn:submit.prevent='submit'>
+        {% csrf_token %}
+
+        <h1>{{position}}</h1>
+
+        <div class="form__container">
+            <label class="form__label" for="position">
+                Cargo
+            </label>
+            <select unicorn:model.defer="position" name="position"
+                     class="form__input form__select" id="position">
+                <option value="0" >Seleccione</option>
+                {% for position in positions %}
+                <option value="{{position.id}}">
+                    {{position.name}}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form__container">
+            <label class="form__label" for="code">
+                Código
+            </label>
+            <input unicorn:model.defer="code" class="form_input" type="text" id="code">
+        </div>
+
+        <div class="form__container">
+            <label class="form__label" for="name">
+                Nombres
+            </label>
+            <input type="text" unicorn:model.defer="name" class="form_input" id="name">
+        </div>
+
+        <div class="form__container">
+            <label class="form__label" for="lastName">
+                Apellidos
+            </label>
+            <input type="text" unicorn:model.defer="lastName" class="form_input" id="lastName">
+        </div>
+
+        <div class="form__container">
+            <label class="form__label" for="email">Correo electrónico</label>
+            <input type="email" unicorn:model.defer="email" class="form_input" id="email">
+        </div>
+
+        <div class="form__container">
+            <label class="form__label" for="telephone">Teléfono</label>
+            <input type="tel" unicorn:model.defer="telephone" class="form_input" id="telephone">
+        </div>
+
+        <div class="form__container">
+            <label class="form__label" for="workstation">Puesto de trabajo</label>
+            <input type="text" unicorn:model.defer="workstation" class="form_input" id="workstation">
+        </div>
+
+        <div class="form__container">
+            <label class="form__label" for="image">Imágen</label>
+            <input unicorn:model.defer="image" type="file" name="image" id="image">
+        </div>
+
+        <div class="form__container">
+            <label class="form__label" for="active">Estado</label>
+            <input type="checkbox" unicorn:model.defer="active" name="active" id="active">
+        </div>
+
+        <button type="submit">
+            Agregar
+        </button>
+
+        <button type="button" unicorn:click.prevent='updated_liable'>
+            Modificar
+        </button>
+
+        {% if component.success %}
+            <p>{{ component.success }}</p>
+        {% endif %}
+
+
+        {% if component.form_errors %}
+            <div class="errors">
+                {% for field, errors in component.form_errors.items %}
+                    <p><strong>{{ field }}:</strong> {{ errors|join:", " }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </form>
+
 
 </div>
