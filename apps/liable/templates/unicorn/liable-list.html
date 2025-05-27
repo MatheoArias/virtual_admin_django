@@ -2,22 +2,30 @@
 {% load static %}
 <div class="container-fluid m-0 p-0" x-data="{ open: false }">
 
-    <div class="row m-0 p-3">
-        <div class="col-3">
-            <h1 class="title display-1 fw-medium fw-bold">Personal</h1>
+    <div class="header row m-0 p-0 align-items-center border-bottom sticky-top z-3">
+        <div class="col-1">
+            {% include "layaout/partials/sidebar-button.html" %}
         </div>
+        <h1 class="title display-1 fw-bold col-2">Personal</h1>
         <div class="col d-flex justify-content-end align-items-center">
-            <input type="search" placeholder="Buscar personal" class="input-search" x-on:focus="open = false"
+            <input type="search" 
+                placeholder="Buscar personal" 
+                class="input-search" 
                 unicorn:model="search" unicorn:change.debounce-100ms="search_liable">
-            <a class="btn-add mx-2" href='#'>Agregar</a>
+            
+                <button class="btn-add" 
+                    data-bs-toggle="modal" 
+                    data-bs-target="#liableForm">
+                    Agregar
+                </button>
         </div>
     </div>
 
-    <ul class="row m-0 p-3 d-flex gap-3 list-unstyled">
+    <ul class="row m-0 p-3 d-flex gap-5 list-unstyled justify-content-center">
         {% if liables%}
         {% for item in liables %}
-        <li class="list__item col-3 d-flex">
-            <div class="container-fluid m-0 p-0">
+        <li class="list__item col-4 d-flex">
+            <div class="container-fluid m-0 p-0 d-flex flex-column justify-content-end">
                 <div class="row p-3 gap-2">
                     {% if item.image %}
                     <img class="col-12" src="#" alt="este es el ícono del personal">
@@ -29,7 +37,7 @@
                     </p>
                 </div>
 
-                <div class="row p-3">
+                <div class="row p-3 justify-content-center">
                     <p class="text col-12">
                         {{item.position | capfirst}}
                     </p>
@@ -46,22 +54,23 @@
                     </a>
 
                     {% if item.active == True %}
-                        <p class="text-bool true col">Activo</p>
+                        <p class="text-bool true col-6">Activo</p>
                     {% else %}
-                        <p class="text-bool false col">Retirado</p>
+                        <p class="text-bool false col-6">Retirado</p>
                     {% endif %}
 
-                    <button class="btn-detail col-1" 
-                            unicorn:click.prevent="get_liable('{{item.id}}')">
+                    <button class="btn-detail" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#liableDetail">
                     </button>
 
                     <button type="button" 
-                            class="btn-edit btn-icon justify-content-end" 
-                            x-on:click.prevent="open = true"
-                            unicorn:click.prevent="get_liable('{{item.id}}')">
+                            class="btn-icon btn-edit col-1"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#liableForm">
                     </button>
 
-                    <button class="btn-icon btn-delete col-1" 
+                    <button class="btn-icon btn-delete col-1"
                             unicorn:click.prevent="delete_liable('{{item.id}}')">
                         X
                     </button>
@@ -76,24 +85,25 @@
         {% endif %}
     </ul>
 
-    <div class="row">
-
-        {% if liable and modal_state %}
-        <div class="modal" id="modal-detail" x-show="open" x-transition>
+    <div class="modal fade" id="liableForm" tabindex="-1" aria-labelledby="liableForm" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
-                {% unicorn 'liable-detail' liable=liable%}
-                <button type="button" class="btn-close" id="btn-close" x-on:click="open = false"
-                    unicorn:click="close_modal">
-                    x
-                </button>
+                <div class="modal-body">
+                {% unicorn 'liable-form' liable=liable%}
+                </div>
             </div>
         </div>
-        {% endif %}
-
-        {% if liable %}
-        <div class="section">
-            {% unicorn 'liable-form' liable=liable%}
-        </div>
-        {% endif %}
     </div>
+
+    
+    <div class="modal fade" id="liableDetail" tabindex="-1" aria-labelledby="liableDetail" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    {% unicorn 'liable-detail' liable=liable%}
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

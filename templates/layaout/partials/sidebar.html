@@ -1,0 +1,58 @@
+{% load static %}
+<div class="bg-modal collapse z-5 fade" id="sidebar">
+
+    <div class="container py-5 px-0 m-0 sidebar__container" >
+
+        <button class="sidebar__button-close d-flex justify-content-center align-items-center p-4" type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#sidebar"
+                    aria-expanded="false"
+                    aria-controls="sidebar">
+                    x
+        </button>
+                
+        <div class="row m-auto p-3">
+
+            <img class="sidebar-img col-3" 
+                    src="{% static 'assets/user-white.svg' %}" 
+                    alt="esto es un ícono de usuario">
+
+            <div class="col-9 d-flex flex-column align-items-end">
+
+                <p class="sidebar-text fs-1">
+                    Bienvenido
+                </p>
+
+                <p class="m-0 py-1 sidebar-text fs-5">
+                    Dario de Jesús Ocampo Betancourt
+                </p>
+
+                <p class="m-0 py-1 sidebar-text opacity-50 fs-5">
+                    Director técnico
+                </p>
+
+                <div class="container logout-container p-3 m-0">
+                    <div class="row w-100 d-flex justify-content-center">
+
+                        <i class="icon-logout col-6 px-3"></i>
+
+                        <a class="sidebar-text col-6 fs-5" href="#">
+                            Cerrar Sesión
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="row m-auto p-3">
+            <ul class="nav m-0 p-0 flex-colum">
+                <li class="sidebar__item container p-3 d-flex justify-content-start align-items-center">
+                    <i class="sidebar__list-icon"></i>
+                    <a class="sidebar-text px-3 fs-3" href={% url 'liable:liable-index' %}>Personal</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
