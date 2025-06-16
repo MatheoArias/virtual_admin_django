@@ -8,27 +8,17 @@ class LiableListView(UnicornView):
 
     liable: Liable
     liables: list[Liable]
-    search: str = ""
+    search: str
     
     modal_state: bool = False
 
     def mount(self):
         self.liable=None
         self.liables=[]
+        self.search=""
 
         if not self.liables:
             self.get_all_liables()
-
-
-    def complete(self):
-        print("Todos los métodos han sido ejecutados.")
-
-    def rendered(self, html):
-        print("Componente renderizado.")
-    
-    def close_modal(self):
-        self.modal_state = False
-        self.liable=None
 
     def get_all_liables(self):
         self.liables = list(Liable.objects.all())
@@ -48,19 +38,23 @@ class LiableListView(UnicornView):
             print("Liable not found")
 
     def search_liable(self):
-        if self.search == "":
+        search_term = self.search.strip().lower()
+       
+        if search_term == "":
             self.get_all_liables()
         else:
-            liables_query = Liable.objects.filter(
-                Q(position__name__icontains=self.search) |
-                Q(code__icontains=self.search) |
-                Q(name__icontains=self.search) |
-                Q(lastName__icontains=self.search) |
-                Q(email__icontains=self.search) |
-                Q(telephone__icontains=self.search) |
-                Q(workstation__icontains=self.search)
-            )
+            liables_query = Liable.objects.select_related("position").filter(
+                Q(position__code__icontains=search_term) |
+                Q(position__name__icontains=search_term) |
+                Q(code__icontains=search_term) |
+                Q(name__icontains=search_term) |
+                Q(lastName__icontains=search_term) |
+                Q(email__icontains=search_term) |
+                Q(telephone__icontains=search_term) |
+                Q(workstation__icontains=search_term)
+            ).distinct()
             self.liables = list(liables_query)
+
 
     def delete_liable(self, liable_id):
         if liable_id:
